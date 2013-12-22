@@ -1,0 +1,27 @@
+{
+    "strict": true,
+    "undef": true,
+    "curly": true,
+    "indent": 4,
+    "devel": true,
+    "laxcasebreak": true,
+    "forin": true,
+    "latedef": true,
+    "newcap": true,
+    "nonew": true,
+    "quotmark": "double",
+    "trailing": true,
+    "maxlen": 120,
+    "debug": true,
+    "browser": true,
+    "node": true,
+    "jquery": true,
+    "globals":{
+        "describe": true,
+        "it": true,
+        "expect": true,
+        "runs": true,
+        "waits": true,
+        "waitsFor": true
+    }
+}
