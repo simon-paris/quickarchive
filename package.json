@@ -1,0 +1,24 @@
+{
+  "name": "quickarchive",
+  "version": "1.0.0",
+  "description": "An archiving library designed for delivering files to the browser in bulk.",
+  "main": "src/quickarchive.js",
+  "scripts": {
+    "test": "jasmine-node specs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:simon-paris/quickarchive.git"
+  },
+  "keywords": [
+    "archive",
+    "html5",
+    "game",
+    "zip"
+  ],
+  "author": "simonparis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simon-paris/quickarchive/issues"
+  }
+}

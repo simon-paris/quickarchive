@@ -12,7 +12,7 @@
     } else if (typeof window !== "undefined") {
         QuickArchive = window.QuickArchive;
     }
-    var PolyfillBuffer = QuickArchive.PolyfillBuffer,
+    var BufferFactory = QuickArchive.BufferFactory,
         BufferShims = QuickArchive.BufferShims;
     
     
@@ -41,8 +41,8 @@
             var ar = new QuickArchive();
             
             //add data and read it back
-            ar.addData("test", new PolyfillBuffer([5,6,7]));
-            ar.addData("test2", new PolyfillBuffer([1,2,3,4]));
+            ar.addData("test", new BufferFactory([5,6,7]));
+            ar.addData("test2", new BufferFactory([1,2,3,4]));
             var data = ar.getData("test");
             
             //test that the data is correct
@@ -65,7 +65,7 @@
             var ar = new QuickArchive();
             
             //add data and read it back
-            ar.addData("test", new PolyfillBuffer([5,6,7]), "comment");
+            ar.addData("test", new BufferFactory([5,6,7]), "comment");
             expect(ar.getCommentOf("test")).toEqual("comment");
             
             ar.addData("test", null, "comment2");
@@ -104,7 +104,7 @@
             var ar = new QuickArchive();
             
             //add data and read it back
-            ar.addData("test", new PolyfillBuffer([5,6,7]), "comment");
+            ar.addData("test", new BufferFactory([5,6,7]), "comment");
             ar.removeData("test");
             expect(ar.getData("test")).toEqual(undefined);
             
@@ -119,7 +119,7 @@
             var ar = new QuickArchive();
             
             //add data and read it back
-            var d1 = new PolyfillBuffer([5,6,7]);
+            var d1 = new BufferFactory([5,6,7]);
             ar.addData("view", d1);
             ar.addDataByCopy("copy", d1);
             d1[0] = 1;
@@ -137,7 +137,7 @@
             var ar = new QuickArchive();
             
             //add data and read it back
-            var d1 = new PolyfillBuffer([5,6,7]);
+            var d1 = new BufferFactory([5,6,7]);
             ar.addData("view", d1);
             
             var ar2 = new QuickArchive(ar.toBuffer());
@@ -157,7 +157,7 @@
             
             //add data and read it back
             ar.comment("comment");
-            ar.addData("test", new PolyfillBuffer([5,6,7]), "comment2");
+            ar.addData("test", new BufferFactory([5,6,7]), "comment2");
             
             var ar2 = new QuickArchive(ar.toBuffer());
             
@@ -203,8 +203,8 @@
                 
                 //add data and read it back
                 ar.comment("test" + i);
-                ar.addData("test" + i, new PolyfillBuffer([data[i]]), "comment");
-                ar.addData("overwritten", new PolyfillBuffer([data[i]]));
+                ar.addData("test" + i, new BufferFactory([data[i]]), "comment");
+                ar.addData("overwritten", new BufferFactory([data[i]]));
                 
                 var buf = ar.toBuffer();
                 totalLength += buf.length;
@@ -212,7 +212,7 @@
                 buffers.push(buf);
             }
             
-            var output = new PolyfillBuffer(totalLength),
+            var output = new BufferFactory(totalLength),
                 cursor = 0;
             
             for (i = 0; i < buffers.length; i++) {
@@ -240,11 +240,11 @@
             
             //empty archive
             var ar = new QuickArchive();
-            ar.addData("test", new PolyfillBuffer([5,6,7]));
+            ar.addData("test", new BufferFactory([5,6,7]));
             
-            var ar2 = new QuickArchive(PolyfillBuffer.concat([
+            var ar2 = new QuickArchive(BufferFactory.concat([
                 ar.toBuffer(),
-                new PolyfillBuffer([1,5,3,5,6,4])
+                new BufferFactory([1,5,3,5,6,4])
             ]));
             
             expect(ar.listEntries().length).toEqual(1);
@@ -286,9 +286,13 @@
         }
         
         
-        //these tests only works on node because browser doesn't have toString("utf8")
+        
+        
         if (typeof Buffer !== "undefined") {
             
+            //these tests only works on node because browser doesn't have
+            //toString("utf8"). TODO: support these tests on the browser
+        
             it("should detect corruption", function () {
                 
                 //empty archive
@@ -296,7 +300,7 @@
                 
                 var buffer = ar.toBuffer();
                 buffer = buffer.toString("utf8");
-                buffer = new PolyfillBuffer(buffer);
+                buffer = new BufferFactory(buffer);
                 
                 function corruptArchive() {
                     var ar2 = new QuickArchive(buffer);
@@ -345,6 +349,9 @@
             });
             
         } else {
+            
+            //these tests test conversion from ArrayBuffers to Uint8Arrays and
+            //do not run on node.
             
             it("should add data as an arraybuffer", function () {
                 

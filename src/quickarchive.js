@@ -115,19 +115,25 @@
      */
     QuickArchive.prototype.addData = function (name, data, comment) {
         
+        //can't do anythig without a name
         if (!name) {
             return;
         }
+        
+        //convert strings to buffers
         if (data instanceof String || typeof data === "string") {
             var temp = new BufferFactory(data.length);
             BufferShims.write(temp, data);
             data = temp;
         } else if (data instanceof ArrayBuffer) {
+            //wrap ArrayBuffers in ArrayBufferViews
             data = new Uint8Array(data);
         } else if (this.isArrayBufferView(data)) {
+            //change any type of ArrayBufferView into a Uint8Array
             data = new Uint8Array(data.buffer);
         }
         if (!data) {
+            //if no data is supplied, we can try to change the comment
             if (comment && this.dataEntries[name]) {
                 this.dataEntries[name].comment = comment;
             }
@@ -179,13 +185,8 @@
      */
     QuickArchive.prototype.addDataByCopy = function (name, data, comment) {
         
-        var temp;
         if (data instanceof String || typeof data === "string") {
-            temp = new BufferFactory(data.length);
-            BufferShims.write(temp, data);
-            data = temp;
-        } else {
-            temp = new BufferFactory(data.length);
+            var temp = new BufferFactory(data.length);
             BufferShims.copy(data, temp, 0, 0, data.length);
             data = temp;
         }
@@ -687,6 +688,10 @@
     }
     
     
+    
+    
+    
+    
     /**
      * Function: BufferFactory
      * 
@@ -799,8 +804,8 @@
     
     
     
-    QuickArchive.PolyfillBuffer = BufferFactory;
     QuickArchive.BufferShims = BufferShims;
+    QuickArchive.BufferFactory = BufferFactory;
     
     if (typeof module !== "undefined") {
         module.exports = QuickArchive;
