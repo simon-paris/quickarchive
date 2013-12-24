@@ -185,7 +185,7 @@
      */
     QuickArchive.prototype.addDataByCopy = function (name, data, comment) {
         
-        if (data instanceof String || typeof data === "string") {
+        if (!(data instanceof String || typeof data === "string")) {
             var temp = new BufferFactory(data.length);
             BufferShims.copy(data, temp, 0, 0, data.length);
             data = temp;
