@@ -9,16 +9,16 @@ runs on node.js an the browsers. It does not use compression.
 
 
 ##Why?
-Because if you have a a web application with a large number of files that you need
+Because if you have a web application with a large number of files that you need
 to load, it can be much quicker to load a single archive file than to load each file
 individually.
 
-Additionally, many JavaScript implementations of existing archive formats either
-perform poorly, do not work as intended or don't work on both node.js and the brower.
-QuickArchive never copies archived files and therefore never uses much more memory 
-than the size of the archive.
+Additionally, many JavaScript implementations of existing archive formats (i.e. zip) either
+perform poorly, do not work as intended or don't work on both node.js and the broswer.
+QuickArchive prefers to create views of archived files instead of copies and therefore
+never uses much more memory than the size of the archive.
 
-Compression is not included because any decent browser or webserver can compress data
+Compression is not included because most browsers and server support compression
 on the fly.
 
 
