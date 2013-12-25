@@ -1,6 +1,6 @@
 {
   "name": "quickarchive",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An archiving library designed for delivering files to the browser in bulk.",
   "main": "src/quickarchive.js",
   "scripts": {
