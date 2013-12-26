@@ -1,0 +1,23 @@
+{
+  "name": "quickarchive",
+  "version": "1.0.0",
+  "homepage": "https://github.com/simon-paris/quickarchive",
+  "authors": [
+    "simon-paris <simon.paris.93@gmail.com>"
+  ],
+  "description": "An archiving library designed for delivering files to the browser in bulk.",
+  "main": "src/quickarchive.js",
+  "keywords": [
+    "archive",
+    "zip",
+    "html5"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

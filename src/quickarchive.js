@@ -226,7 +226,7 @@
      *      name - (string) The name of the entry.
      * 
      * Returns:
-     * The comment for teh entry with name.
+     * The comment for the entry with name.
      */
     QuickArchive.prototype.getCommentOf = function (name) {
         
@@ -265,6 +265,8 @@
      * Function: makeHeader
      * 
      * Returns the header object for the archive. The header object has the form:
+     * (start code)
+     * 
      * {
      *      comment: "text",
      *      entries {
@@ -273,6 +275,7 @@
      *      },
      * }
      * 
+     * (end)
      * The header describes the size and location of all the binary data in the file.
      * This excludes the header's size,  as we don't know how big it will be until we
      * create it.
@@ -533,7 +536,11 @@
     
     
     
-    
+    /**
+     * Namespace: BufferShims
+     * 
+     * For compatability on both browsers and node
+     */
     var BufferShims = {};
     
     if (typeof Buffer === "undefined") {
@@ -690,7 +697,9 @@
     
     
     
-    
+    /**
+     * Namespace: BufferFactory
+     */
     
     /**
      * Function: BufferFactory
